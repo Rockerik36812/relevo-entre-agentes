@@ -30,6 +30,22 @@ rm -rf .git && git init
 # 3. Renombra el repo y describe el proyecto en HANDOFF.md
 ```
 
+## ¿Y si tengo varios proyectos?
+
+**Cada proyecto tiene sus propios archivos, dentro de su propio repo.** Nada se sobrescribe y nada se comparte:
+
+```
+relevo-entre-agentes/     ← esta plantilla: SOLO el molde, aquí no se trabaja
+panel-agentes/            ← HANDOFF.md propio, AGENTS.md propio
+otro-proyecto/            ← HANDOFF.md propio, AGENTS.md propio
+```
+
+- El `HANDOFF.md` de un proyecto **no sabe nada** de los otros. Cada repo es su propio batón.
+- Esta plantilla **nunca se modifica al adoptar**: se copia. Si mejoras el protocolo, se actualiza aquí y los proyectos lo jalan cuando quieran.
+- Los agentes leen el `HANDOFF.md` del repo en el que están trabajando, no uno global.
+
+**Opcional — regla global de Antigravity:** si no quieres depender de que cada repo tenga `.agents/rules/`, puedes poner una regla global en `~/.gemini/AGENTS.md` que diga: *"Si el repo tiene `HANDOFF.md`, sigue el protocolo de relevo"*. Aplica a todos tus proyectos y ahorra repetir la config.
+
 ## Arrancar un turno (el prompt que se le da al agente)
 
 **A Titán (Telegram):**
