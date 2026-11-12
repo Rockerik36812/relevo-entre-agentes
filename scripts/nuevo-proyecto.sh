@@ -8,6 +8,17 @@ NOMBRE="${2:?falta el nombre del proyecto}"
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 [ -e "$DEST" ] && { echo "ERROR: $DEST ya existe"; exit 1; }
+command -v git >/dev/null 2>&1 || { echo "ERROR: falta git en el PATH"; exit 1; }
+
+# `sed -i` NO es portable: GNU lo acepta como `sed -i`, BSD/macOS exige `sed -i ''`.
+# Aborta el script a medias (carpeta creada y sin commit). Se escribe a un temporal
+# y se copia encima del original: mismo resultado en Linux y en macOS.
+editar_en_sitio() {
+  local expr="$1" archivo="$2" tmp
+  tmp="$(mktemp "$archivo.XXXXXX")"
+  sed "$expr" "$archivo" > "$tmp" && cat "$tmp" > "$archivo"
+  rm -f "$tmp"
+}
 
 mkdir -p "$DEST"
 for f in AGENTS.md HANDOFF.md README.md .agents; do
@@ -17,8 +28,10 @@ mkdir -p "$DEST/.handoff"
 cp "$SRC/.handoff/log.md" "$DEST/.handoff/log.md"
 
 # Ajusta el nombre del proyecto en el handoff
-sed -i "s|^# HANDOFF — .*|# HANDOFF — $NOMBRE|" "$DEST/HANDOFF.md"
-sed -i "s|^# Relevo entre agentes — .*|# Relevo entre agentes — $NOMBRE|" "$DEST/README.md" 2>/dev/null || true
+editar_en_sitio "s|^# HANDOFF — .*|# HANDOFF — $NOMBRE|" "$DEST/HANDOFF.md"
+if [ -f "$DEST/README.md" ]; then
+  editar_en_sitio "s|^# Relevo entre agentes — .*|# Relevo entre agentes — $NOMBRE|" "$DEST/README.md"
+fi
 # La bitácora arranca limpia en proyectos nuevos
 cat > "$DEST/.handoff/log.md" <<'EOF'
 # Bitácora de relevos
@@ -32,8 +45,20 @@ Formato: `fecha | agente | qué cambió | archivos | estado`
 EOF
 
 git -C "$DEST" init -q
+git -C "$DEST" symbolic-ref HEAD refs/heads/main   # la rama se llama main, como en el protocolo
 git -C "$DEST" add -A
-git -C "$DEST" commit -q -m "[plantilla] arranca $NOMBRE con protocolo de relevo"
+git -C "$DEST" -c user.name="${GIT_AUTHOR_NAME:-Rockerik}" -c user.email="${GIT_AUTHOR_EMAIL:-erik36812@gmail.com}" \
+  commit -q -m "[plantilla] arranca $NOMBRE con protocolo de relevo"
+
+# --- Autoverificación: el proyecto NO puede quedar a medias ----------------
+fallas=0
+grep -q "<nombre del proyecto>" "$DEST/HANDOFF.md" && { echo "ERROR: HANDOFF.md conservó el marcador <nombre del proyecto>"; fallas=1; }
+git -C "$DEST" rev-parse --verify HEAD >/dev/null 2>&1 || { echo "ERROR: el repo quedó sin commit inicial"; fallas=1; }
+if [ "$fallas" -ne 0 ]; then
+  echo
+  echo "El proyecto quedó INCOMPLETO en $DEST. Bórralo y repite:  rm -rf $DEST"
+  exit 1
+fi
 
 echo "OK: $NOMBRE creado en $DEST"
 echo "Siguiente: describe el Objetivo y el SIGUIENTE PASO en $DEST/HANDOFF.md"
