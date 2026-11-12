@@ -1,6 +1,6 @@
 # Relevo entre agentes — Titán ↔ Antigravity
 
-Plantilla para trabajar un proyecto **en turnos entre dos agentes**, sin que ninguno pierda el trabajo del otro.
+Plantilla para trabajar un proyecto **en turnos entre varios agentes** (hoy: Titán, Antigravity y OpenCode), sin que ninguno pierda el trabajo del otro.
 
 **El problema que resuelve:** a Erik se le acaba el uso de Antigravity y quiere que Titán continúe desde donde él quedó; luego Antigravity regresa y sigue. Sin un punto de relevo, el segundo agente no tiene idea de qué se hizo.
 
@@ -10,7 +10,7 @@ Plantilla para trabajar un proyecto **en turnos entre dos agentes**, sin que nin
 
 | Archivo | Para qué |
 |---|---|
-| `AGENTS.md` | El protocolo. **Los dos agentes lo leen automáticamente.** |
+| `AGENTS.md` | El protocolo. **Todos los agentes lo leen automáticamente** (Antigravity y OpenCode también: ambos leen `AGENTS.md`). |
 | `HANDOFF.md` | El batón: estado vivo, dueño actual y el SIGUIENTE PASO. |
 | `.handoff/log.md` | Bitácora append-only: quién hizo qué y cuándo. |
 | `.agents/rules/protocolo-relevo.md` | Regla que Antigravity carga sola en este proyecto. |
@@ -60,7 +60,7 @@ otro-proyecto/            ← HANDOFF.md propio, AGENTS.md propio
 2. **Al cerrar, se actualiza `HANDOFF.md`.** Siempre. Es la única forma de que el relevo no se rompa.
 3. **Estado autocontenido.** El otro agente no ve la conversación: si no está en el repo, no existe.
 4. **Nada de secretos en el repo.** Se documenta dónde vive el secreto, no su valor.
-5. **Commits con prefijo** `[titán]` / `[antigravity]` para saber de quién es cada cambio.
+5. **Commits con prefijo** `[titán]` / `[antigravity]` / `[opencode]` para saber de quién es cada cambio.
 
 ---
 © By Erik Cano
