@@ -1,7 +1,7 @@
 # HANDOFF — <nombre del proyecto>
 
-**Dueño actual:** opencode
-**Última actualización:** 2026-11-12 01:03 (CST)
+**Dueño actual:** libre
+**Última actualización:** 2026-11-12 01:10 (CST)
 **Estado:** 🟢 en marcha / 🟡 en pausa / 🔴 bloqueado
 
 ## Objetivo
