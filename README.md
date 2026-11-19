@@ -6,6 +6,8 @@ Plantilla para trabajar un proyecto **en turnos entre varios agentes** (hoy: Tit
 
 **La solución:** el estado vive en el **repo Git**, no en la conversación.
 
+**Y un revisor:** **Muse** (Meta) revisa commits y PRs por su conector de GitHub, en **solo lectura**. No es dueño ni toma el batón: sus revisiones se registran en la bitácora firmadas `muse (revisor)`. Detalle en `AGENTS.md`.
+
 ## Cómo funciona
 
 | Archivo | Para qué |
@@ -61,6 +63,7 @@ otro-proyecto/            ← HANDOFF.md propio, AGENTS.md propio
 3. **Estado autocontenido.** El otro agente no ve la conversación: si no está en el repo, no existe.
 4. **Nada de secretos en el repo.** Se documenta dónde vive el secreto, no su valor.
 5. **Commits con prefijo** `[titán]` / `[antigravity]` / `[opencode]` para saber de quién es cada cambio.
+6. **El revisor no vota, revisa.** Muse (Meta) lee y comenta en solo lectura; el batón, el commit y el merge siguen siendo de los dueños.
 
 ---
 © By Erik Cano

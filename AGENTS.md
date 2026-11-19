@@ -4,6 +4,8 @@ Este proyecto lo trabajan **tres agentes en turnos**: **Titán** (Hermes, vive e
 
 **Dos pares y un trabajador:** Titán y Antigravity **deciden** — traen contexto y memoria propios. OpenCode **ejecuta**: no tiene memoria entre sesiones, así que su turno empieza leyendo `HANDOFF.md` y **termina con commit y push** — lo que no quedó en el repo, se perdió.
 
+**Y un revisor que no es dueño:** **Muse** (Meta) lee el repo por su conector de GitHub, en **solo lectura**, y revisa commits y PRs. **No toma el batón** (ver *Revisor externo*).
+
 ## La regla que no se rompe
 
 **Un solo agente es dueño a la vez. Al terminar tu turno, actualizas `HANDOFF.md`. Sin eso, el relevo se rompe y el otro agente pierde el trabajo.**
@@ -32,6 +34,17 @@ Este proyecto lo trabajan **tres agentes en turnos**: **Titán** (Hermes, vive e
 - **No borres el trabajo del otro.** Si algo te parece mal, escríbelo en "Decisiones pendientes" y sigue.
 - **Si no terminaste, dilo.** Un relevo mentiroso cuesta más que uno vacío. Escribe "a medias en X, falta Y".
 - **Pruebas antes de declarar hecho.** Si no corriste nada, escribe "sin verificar".
+
+## Revisor externo: Muse (Meta) — solo lectura
+
+El proyecto tiene un **revisor**, y no es un dueño: **Muse** (Meta), conectado por su conector de GitHub con permiso de **solo lectura**.
+
+- **No toma el batón.** `Dueño actual:` sigue aceptando únicamente `titán`, `antigravity`, `opencode` o `libre`.
+- **Qué hace:** lee el repo, revisa el commit o el PR que se le nombre, y dice qué cambia, qué podría romperse y qué hay que verificar antes de mergear. Puede **comentar**; **no** mergea, cierra, pushea ni borra nada sin la aprobación explícita de Erik.
+- **Cómo entra su trabajo al repo:** quien tenga el batón transcribe la revisión a `.handoff/log.md` **firmada `muse (revisor)`** y anota qué agente la pasó. Si Muse comentó directo en el PR, ese comentario es el registro y la bitácora apunta a él.
+- **Alcance:** solo repos del relevo. **Nunca** repos con datos de clientes. La app corre en infraestructura de Meta y **entrena con las consultas por default**, así que aplica la regla dura de siempre: nada de secretos, IPs privadas ni datos de clientes en lo que se le pase.
+- **Una revisión no es una prueba.** El gate sigue siendo correr las pruebas; Muse es el segundo par de ojos, no el único.
+- **Es reversible.** Si en 2-3 revisiones no aporta, se retira — el precedente está anotado: Copilot CLI entró al relevo y se fue con 0 commits.
 
 ## Quién es mejor para qué
 

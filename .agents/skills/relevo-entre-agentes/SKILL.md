@@ -29,6 +29,12 @@ Cómo tomar y soltar un proyecto que se trabaja en turnos con otro agente (Titá
 3. Commit con prefijo `[titán]`, `[antigravity]` o `[opencode]`, luego `push`.
 4. `Dueño actual: libre`.
 
+## Revisor externo (Muse)
+
+- Muse (Meta) revisa por su **conector de GitHub en solo lectura**: lee commits y PRs, y comenta. **No es dueño**: no toma el batón ni entra en `Dueño actual:`.
+- Su revisión se registra en `.handoff/log.md` firmada `muse (revisor)`, anotando qué agente la pasó.
+- Nunca se le pasan repos con datos de clientes. Y una revisión **no** es una prueba: el gate sigue siendo correr las pruebas.
+
 ## Pitfalls que rompen el relevo
 
 - **Cerrar sin actualizar `HANDOFF.md`**: el otro agente rehace trabajo o se queda parado. Es el error número uno.
