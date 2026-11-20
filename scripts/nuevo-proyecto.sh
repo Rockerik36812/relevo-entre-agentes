@@ -36,10 +36,8 @@ mkdir -p "$DEST"
 for f in AGENTS.md HANDOFF.md README.md .agents; do
   cp -r "$SRC/$f" "$DEST/"
 done
-mkdir -p "$DEST/.handoff" "$DEST/scripts"
+mkdir -p "$DEST/.handoff"
 cp "$SRC/.handoff/log.md" "$DEST/.handoff/log.md"
-cp "$SRC/scripts/revisiones-pendientes.sh" "$DEST/scripts/revisiones-pendientes.sh"
-chmod +x "$DEST/scripts/revisiones-pendientes.sh"
 
 # Ajusta el nombre del proyecto en el handoff
 NOMBRE_SED="$(escapar_sed "$NOMBRE")"

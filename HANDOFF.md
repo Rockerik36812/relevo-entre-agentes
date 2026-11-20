@@ -27,7 +27,7 @@
 ## Pruebas y revisión
 
 - **Pruebas corridas:** <comando + resultado; si no corriste nada, escribe "sin verificar">
-- **Revisión de Muse:** <no vista / abierta (enlace del issue) / atendida (issue cerrado) / ignorada a propósito>
+- **Revisión de Muse:** <ninguna / pendiente (archivo en `.handoff/revisiones/`) / atendida / ignorada a propósito>
 - **Repos que Muse puede ver:** <lista blanca de este proyecto: solo repos públicos o sin datos de clientes>
 
 Una revisión **no** sustituye a las pruebas: van en campos separados a propósito.

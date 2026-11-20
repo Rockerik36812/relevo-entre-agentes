@@ -14,11 +14,9 @@ git -C "$DEST" rev-parse --git-dir >/dev/null 2>&1 || { echo "ERROR: $DEST no es
 echo "== Adoptando protocolo de relevo en: $DEST"
 
 # --- 1. Archivos que no dependen del proyecto -------------------------------
-mkdir -p "$DEST/.handoff" "$DEST/scripts" "$DEST/.agents/rules" "$DEST/.agents/skills/relevo-entre-agentes"
+mkdir -p "$DEST/.handoff" "$DEST/.agents/rules" "$DEST/.agents/skills/relevo-entre-agentes"
 cp "$SRC/.agents/rules/protocolo-relevo.md"                    "$DEST/.agents/rules/protocolo-relevo.md"
 cp "$SRC/.agents/skills/relevo-entre-agentes/SKILL.md"         "$DEST/.agents/skills/relevo-entre-agentes/SKILL.md"
-cp "$SRC/scripts/revisiones-pendientes.sh"                      "$DEST/scripts/revisiones-pendientes.sh"
-chmod +x "$DEST/scripts/revisiones-pendientes.sh"
 
 # AGENTS.md: no se sobrescribe si ya existe (puede tener reglas del proyecto)
 if [ -f "$DEST/AGENTS.md" ]; then
@@ -121,7 +119,7 @@ EOF
 fi
 
 # --- 4. Commit SOLO de los archivos del protocolo --------------------------
-git -C "$DEST" add AGENTS.md HANDOFF.md .handoff .agents scripts
+git -C "$DEST" add AGENTS.md HANDOFF.md .handoff .agents
 git -C "$DEST" -c user.name=Rockerik -c user.email=erik36812@gmail.com \
   commit -q -m "[plantilla] adopta el protocolo de relevo entre agentes" \
   && echo "   commit local creado ✅"
