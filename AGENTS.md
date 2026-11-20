@@ -1,4 +1,4 @@
-# Protocolo de relevo entre agentes (Titán ↔ Antigravity ↔ OpenCode)
+# Protocolo de relevo entre agentes (Titán ↔ Antigravity ↔ OpenCode) · revisor: Muse
 
 Este proyecto lo trabajan **tres agentes en turnos**: **Titán** (Hermes, vive en un servidor), **Antigravity** (IDE, vive en la máquina de Erik) y **OpenCode** (CLI, también en la máquina de Erik). Nunca trabajan al mismo tiempo. Se pasan un batón: el archivo `HANDOFF.md`.
 
