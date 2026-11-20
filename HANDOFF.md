@@ -1,7 +1,7 @@
 # HANDOFF — <nombre del proyecto>
 
-**Dueño actual:** libre  ·  válidos: `titán`, `antigravity`, `opencode`, `libre` (Muse **nunca** va aquí)
-**Última actualización:** 2026-11-19 23:36 CST (2026-11-20 05:36 UTC)
+**Dueño actual:** antigravity  ·  válidos: `titán`, `antigravity`, `opencode`, `libre` (Muse **nunca** va aquí)
+**Última actualización:** 2026-11-19 23:41 CST (2026-11-20 05:41 UTC)
 **Estado:** 🟢 en marcha / 🟡 en pausa / 🔴 bloqueado
 
 ## Objetivo
