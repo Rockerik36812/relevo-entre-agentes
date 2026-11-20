@@ -17,6 +17,7 @@ Plantilla para trabajar un proyecto **en turnos entre varios agentes** (hoy: Tit
 | `.handoff/log.md` | Bitácora append-only: quién hizo qué y cuándo. |
 | `.agents/rules/protocolo-relevo.md` | Regla que Antigravity carga sola en este proyecto. |
 | `.agents/skills/relevo-entre-agentes/SKILL.md` | La misma skill, en el formato estándar, para Antigravity. |
+| buzón [`revisiones-muse`](https://github.com/Rockerik36812/revisiones-muse) | Repo aparte donde **escribe el revisor**. Se clona una vez y se le hace `git pull` al empezar turno. |
 
 **Por qué Git:** Titán empuja desde el servidor, Antigravity desde la PC de Erik, y los dos ven exactamente lo mismo. Si un agente se equivoca, el historial lo delata.
 

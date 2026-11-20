@@ -24,14 +24,27 @@ if [ -f "$DEST/AGENTS.md" ]; then
   if ! grep -q 'Protocolo de relevo' "$DEST/AGENTS.md"; then
     { echo; echo "---"; echo; cat "$SRC/AGENTS.md"; } >> "$DEST/AGENTS.md"
     echo "      -> no traía el protocolo: se le anexó completo"
-  elif ! grep -q 'Revisor externo' "$DEST/AGENTS.md"; then
-    # Trae una versión ANTERIOR del protocolo: se le anexa SOLO la sección nueva,
-    # sin sobrescribir el resto (el AGENTS.md del proyecto puede tener reglas propias).
-    { echo; echo "---"; echo; sed -n '/^## Revisor externo/,/^## Quién es mejor para qué/p' "$SRC/AGENTS.md" | sed '$d'; } >> "$DEST/AGENTS.md"
-    echo "      -> traía un protocolo anterior: se le anexó SOLO la sección del revisor"
-    echo "         OJO: la regla de Antigravity, el SKILL.md y la bitácora ya se copiaron; revisa que no queden duplicados"
+  elif grep -q 'revisiones-muse' "$DEST/AGENTS.md"; then
+    echo "      -> ya trae el protocolo y la sección del revisor al día: no se toca"
   else
-    echo "      -> ya trae el protocolo y la sección del revisor: no se toca"
+    # Trae una versión ANTERIOR del protocolo (de cualquier versión): se le anexa SOLO
+    # la sección del revisor, sin sobrescribir el resto (puede tener reglas propias).
+    # OJO: la detección es por CONTENIDO (`revisiones-muse`), NO por el título de la
+    # sección — así un proyecto que trae la sección vieja SÍ recibe la nueva, y el
+    # título puede cambiar sin romper este script (ya pasó una vez).
+    # El bloque se saca de los marcadores `<!-- inicio-revisor -->`; si el AGENTS.md
+    # de origen no los trae, se cae al patrón `^## Revisor`.
+    BLOQUE="$(sed -n '/<!-- inicio-revisor -->/,/<!-- fin-revisor -->/p' "$SRC/AGENTS.md")"
+    if [ -z "$BLOQUE" ]; then
+      BLOQUE="$(sed -n '/^## Revisor/,/^## Quién es mejor para qué/p' "$SRC/AGENTS.md" | sed '$d')"
+    fi
+    if [ -z "$BLOQUE" ]; then
+      echo "      -> ERROR: no encontré la sección del revisor en $SRC/AGENTS.md (¿cambió el título?)"
+    else
+      { echo; echo "---"; echo; printf '%s\n' "$BLOQUE"; } >> "$DEST/AGENTS.md"
+      echo "      -> traía un protocolo anterior: se le anexó SOLO la sección del revisor"
+      echo "         OJO: la regla de Antigravity, el SKILL.md y la bitácora ya se copiaron; revisa que no queden duplicados"
+    fi
   fi
 else
   cp "$SRC/AGENTS.md" "$DEST/AGENTS.md"
