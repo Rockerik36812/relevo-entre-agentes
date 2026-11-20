@@ -20,9 +20,18 @@ cp "$SRC/.agents/skills/relevo-entre-agentes/SKILL.md"         "$DEST/.agents/sk
 
 # AGENTS.md: no se sobrescribe si ya existe (puede tener reglas del proyecto)
 if [ -f "$DEST/AGENTS.md" ]; then
-  echo "   AGENTS.md ya existía -> se conserva, se le anexa el protocolo si falta"
+  echo "   AGENTS.md ya existía -> se conserva"
   if ! grep -q 'Protocolo de relevo' "$DEST/AGENTS.md"; then
     { echo; echo "---"; echo; cat "$SRC/AGENTS.md"; } >> "$DEST/AGENTS.md"
+    echo "      -> no traía el protocolo: se le anexó completo"
+  elif ! grep -q 'Revisor externo' "$DEST/AGENTS.md"; then
+    # Trae una versión ANTERIOR del protocolo: se le anexa SOLO la sección nueva,
+    # sin sobrescribir el resto (el AGENTS.md del proyecto puede tener reglas propias).
+    { echo; echo "---"; echo; sed -n '/^## Revisor externo/,/^## Quién es mejor para qué/p' "$SRC/AGENTS.md" | sed '$d'; } >> "$DEST/AGENTS.md"
+    echo "      -> traía un protocolo anterior: se le anexó SOLO la sección del revisor"
+    echo "         OJO: la regla de Antigravity, el SKILL.md y la bitácora ya se copiaron; revisa que no queden duplicados"
+  else
+    echo "      -> ya trae el protocolo y la sección del revisor: no se toca"
   fi
 else
   cp "$SRC/AGENTS.md" "$DEST/AGENTS.md"

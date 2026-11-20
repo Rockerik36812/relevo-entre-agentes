@@ -1,6 +1,6 @@
 # HANDOFF — <nombre del proyecto>
 
-**Dueño actual:** libre
+**Dueño actual:** libre  ·  válidos: `titán`, `antigravity`, `opencode`, `libre` (Muse **nunca** va aquí)
 **Última actualización:** 2026-11-12 01:10 (CST)
 **Estado:** 🟢 en marcha / 🟡 en pausa / 🔴 bloqueado
 
@@ -23,6 +23,14 @@
 ## En curso (a medias)
 
 - ...
+
+## Pruebas y revisión
+
+- **Pruebas corridas:** <comando + resultado; si no corriste nada, escribe "sin verificar">
+- **Revisión de Muse:** <no vista / vista (enlace al comentario) / atendida / ignorada a propósito>
+- **Repos que Muse puede ver:** <lista blanca de este proyecto: solo repos públicos o sin datos de clientes>
+
+Una revisión **no** sustituye a las pruebas: van en campos separados a propósito.
 
 ## Bloqueos y decisiones pendientes
 
